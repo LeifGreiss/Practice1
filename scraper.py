@@ -20,7 +20,6 @@ def scrape_table(root):
 # scrape_and_look_for_next_link function: calls the scrape_table
 def scrape_and_look_for_next_link(url):
     html = scraperwiki.scrape(url)
-    print html
     root = lxml.html.fromstring(html)
     scrape_table(root)
 starting_url = 'http://www.ukjockey.com/racecourses.html'
