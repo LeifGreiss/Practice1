@@ -10,8 +10,8 @@ def scrape_table(root):
         record = {}
         table_cells = row.cssselect("TD") #In the row use cssselect to select for TD
         if table_cells: 
-            record['Racecourse'] = table_cells[0].text
-            record['Address and Phone Number'] = table_cells[1].text
+            record['Racecourse'] = table_cells[0].text_content
+            record['Address and Phone Number'] = table_cells[1].text_content
             # Print out the data we've gathered
             print record, '------------'
             # Save the record to the data store with Hospital as the unique key.
