@@ -3,12 +3,12 @@ import lxml.html
 # scrape_table function: gets passed an individual page to scrape
 # where is root coming from?
 def scrape_table(root):
-    rows = root.cssselect("p.ex1 tr")
+    rows = root.cssselect("table.p tr")
     #rows = root.cssselect("table.Trolley.table tr")  # selects all <tr> blocks within <table class="Trolley">
     for row in rows: # where do rows come from? 
         # Set up our data record 
         record = {}
-        table_cells = row.cssselect("p.ex1") #In the row use cssselect to select for td
+        table_cells = row.cssselect("td") #In the row use cssselect to select for p
         if table_cells: 
             record['Racecourse'] = table_cells[0].text_content
             record['Address and Phone Book'] = table_cells[1].text_content
