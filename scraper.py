@@ -18,9 +18,9 @@ def scrape_table(root):
             scraperwiki.sqlite.save(["Racecourse"], record)
         
 # scrape_and_look_for_next_link function: calls the scrape_table
-#def scrape_and_look_for_next_link(url):
-    #html = scraperwiki.scrape(url)
-    #root = lxml.html.fromstring(html)
-    #scrape_table(root)
+def scrape_and_look_for_next_link(url):
+    html = scraperwiki.scrape(url)
+    root = lxml.html.fromstring(html)
+    scrape_table(root)
 starting_url = 'http://www.ukjockey.com/racecourses.html'
-#scrape_and_look_for_next_link(starting_url)
+scrape_and_look_for_next_link(starting_url)
