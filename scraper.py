@@ -3,7 +3,7 @@ import lxml.html
 # scrape_table function: gets passed an individual page to scrape
 # where is root coming from?
 def scrape_table(root):
-    rows = root.cssselect("paragraph.ex1.table TR")
+    rows = root.cssselect("TABLE TR")
     #rows = root.cssselect("table.Trolley.table tr")  # selects all <p> blocks within <p class="ex1">
     for row in rows: # where do rows come from? 
         # Set up our data record 
