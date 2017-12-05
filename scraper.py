@@ -4,14 +4,14 @@ import lxml.html
 # where is root coming from?
 def scrape_table(root):
     rows = root.cssselect("paragraph.ex1 TR")
-    #rows = root.cssselect("table.Trolley.table tr")  # selects all <tr> blocks within <table class="Trolley">
+    #rows = root.cssselect("table.Trolley.table tr")  # selects all <p> blocks within <p class="ex1">
     for row in rows: # where do rows come from? 
         # Set up our data record 
         record = {}
         table_cells = row.cssselect("TD") #In the row use cssselect to select for p
         if table_cells: 
             record['Racecourse'] = table_cells[0].text
-            record['Address and Phone Book'] = table_cells[1].text
+            record['Address and Phone Number'] = table_cells[1].text
             # Print out the data we've gathered
             print record, '------------'
             # Save the record to the data store with Hospital as the unique key.
