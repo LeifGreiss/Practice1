@@ -1,24 +1,27 @@
-# This is a template for a Python scraper on morph.io (https://morph.io)
-# including some code snippets below that you should find helpful
-
-# import scraperwiki
-# import lxml.html
-#
-# # Read in a page
-# html = scraperwiki.scrape("http://foo.com")
-#
-# # Find something on the page using css selectors
-# root = lxml.html.fromstring(html)
-# root.cssselect("div[align='left']")
-#
-# # Write out to the sqlite database using scraperwiki library
-# scraperwiki.sqlite.save(unique_keys=['name'], data={"name": "susan", "occupation": "software developer"})
-#
-# # An arbitrary query against the database
-# scraperwiki.sql.select("* from data where 'name'='peter'")
-
-# You don't have to do things with the ScraperWiki and lxml libraries.
-# You can use whatever libraries you want: https://morph.io/documentation/python
-# All that matters is that your final data is written to an SQLite database
-# called "data.sqlite" in the current working directory which has at least a table
-# called "data".
+import scraperwiki
+import lxml.html
+# scrape_table function: gets passed an individual page to scrape
+# where is root coming from?
+def scrape_table(root):
+    rows = root.cssselect("table.td tr")
+    #rows = root.cssselect("table.Trolley.table tr")  # selects all <tr> blocks within <table class="Trolley">
+    for row in rows: # where do rows come from? 
+        # Set up our data record 
+        record = {}
+        table_cells = row.cssselect("p.ex1") #In the row use cssselect to select for td
+        if table_cells: 
+            record['Racecourse'] = table_cells[0].text_content
+            record['Address and Phone Book'] = table_cells[1].text_content
+            # Print out the data we've gathered
+            print record, '------------'
+            # Save the record to the data store with Hospital as the unique key.
+            scraperwiki.sqlite.save(["Racecourse"], record)
+        
+# scrape_and_look_for_next_link function: calls the scrape_table
+def scrape_and_look_for_next_link(url):
+    html = scraperwiki.scrape(url)
+    print html
+    root = lxml.html.fromstring(html)
+    scrape_table(root)
+starting_url = 'http://www.ukjockey.com/racecourses.html'
+scrape_and_look_for_next_link(starting_url)
